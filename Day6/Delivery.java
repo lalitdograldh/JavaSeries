@@ -65,7 +65,7 @@ abstract class Delivery {
     }
 
     public void showDetails(String deliveryType) {
-        
+
         calculateEstimatedTime();
         System.out.println("\n========= DELIVERY DETAILS =========");
         System.out.println("Delivery ID: " + deliveryId);

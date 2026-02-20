@@ -30,9 +30,20 @@ class DroneDelivery extends Delivery implements Trackable, Payable {
     public void deliver() {
         if (status.equals("Cancelled"))
             return;
-        updateStatus("Packed");
-        updateStatus("Out For Delivery");
-        updateStatus("Delivered");
+
+        calculateEstimatedTime();
+        try {
+            updateStatus("Packed");
+            Thread.sleep(1000); // Simulate packing time
+            updateStatus("Out For Delivery");
+            for (int i = 1; i < estimatedHours; i++) {
+                System.out.println("Hour" + i + " completed...");
+                Thread.sleep(500); // Simulate each hour of delivery
+            }
+            updateStatus("Delivered");
+        } catch (InterruptedException e) {
+            System.out.println("Delivery interrupted!");
+        }
     }
 
     public void trackPackage() {
