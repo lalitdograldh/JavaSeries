@@ -25,11 +25,11 @@ class TruckDelivery extends Delivery implements Trackable, Payable{
         calculateEstimatedTime();
         try {
             updateStatus("Packed");
-            Thread.sleep(1000); // Simulate packing time
+            Thread.sleep(10000); // Simulate packing time
             updateStatus("Out For Delivery");
             for (int i = 1; i < estimatedHours; i++) {
                 System.out.println("Hour" + i + " completed...");
-                Thread.sleep(500); // Simulate each hour of delivery
+                Thread.sleep(5000); // Simulate each hour of delivery
             }
             updateStatus("Delivered");
         } catch (InterruptedException e) {
