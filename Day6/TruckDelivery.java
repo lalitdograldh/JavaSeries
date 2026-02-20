@@ -15,7 +15,7 @@ class TruckDelivery extends Delivery implements Trackable, Payable{
     public void calculateEstimatedTime() {
         estimatedHours = (int) Math.ceil(distance / 60.0); // Assuming truck travels 60 km/h
         if (priority.equalsIgnoreCase("Express")) {
-            estimatedHours -= 1; // Express delivery reduces time by 1 hour
+            estimatedHours = Math.max(1, estimatedHours - 1);
         }
     }
     public void deliver() {
@@ -32,8 +32,8 @@ class TruckDelivery extends Delivery implements Trackable, Payable{
         return deliveryId;
     }
 
-    public void makePayment(double amount) {
-        System.out.println("Payment of Rs " + amount + " successful (Truck)");
+    public void makePayment(double amount , String paymentMode) {
+         System.out.println("Payment of Rs " + amount + " successful via " + paymentMode + " (Truck)");
     }
 
     

@@ -26,7 +26,7 @@ class BikeDelivery extends Delivery implements Trackable, Payable {
     public void calculateEstimatedTime() {
         estimatedHours = (int) Math.ceil(distance / 40.0); // Assuming bike travels 40 km/h
         if (priority.equalsIgnoreCase("Express")) {
-            estimatedHours -= 1; // Express delivery reduces time by 1 hour
+            estimatedHours = Math.max(1, estimatedHours - 1);
         }
     }
 
@@ -44,8 +44,9 @@ class BikeDelivery extends Delivery implements Trackable, Payable {
         return deliveryId;
     }
 
-    public void makePayment(double amount) {
-        System.out.println("Payment of Rs " + amount + " successful (Bike)");
+    public void makePayment(double amount, String paymentMode) {
+         System.out.println("Payment of Rs " + amount + 
+                       " successful via " + paymentMode + " (Bike)");
     }
 
 }

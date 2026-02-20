@@ -11,6 +11,7 @@ abstract class Delivery {
     protected int estimatedHours;
     protected String status;
     protected String priority;
+    protected double finalCost;
     protected boolean firstTimeCustomer;
 
     public Delivery(String customerName, double distance, double baseCost, double weight, String priority,
@@ -44,6 +45,11 @@ abstract class Delivery {
     }
 
     public double applyDiscount(double cost) {
+
+        if (!priority.equalsIgnoreCase("Normal") && !priority.equalsIgnoreCase("Express")) {
+            priority = "Normal"; // Default to Normal if invalid input
+        }
+
         if (priority.equalsIgnoreCase("Express")) {
             System.out.println("Express Delivery - No Discount Applied");
             return cost;
@@ -59,8 +65,7 @@ abstract class Delivery {
     }
 
     public void showDetails(String deliveryType) {
-        double cost = calculateCost();
-        cost = applyDiscount(cost);
+        
         calculateEstimatedTime();
         System.out.println("\n========= DELIVERY DETAILS =========");
         System.out.println("Delivery ID: " + deliveryId);
@@ -69,7 +74,7 @@ abstract class Delivery {
         System.out.println("Priority: " + priority);
         System.out.println("Weight: " + weight + " kg");
         System.out.println("Distance: " + distance + " km");
-        System.out.println("Total Cost: Rs" + cost);
+        System.out.println("Total Cost: Rs " + finalCost);
         System.out.println("Estimated Delivery Time: " + estimatedHours + " hours");
         System.out.println("Final Status: " + status);
         System.out.println("======================================");

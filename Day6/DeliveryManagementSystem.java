@@ -50,13 +50,24 @@ public class DeliveryManagementSystem {
                 return;
         }
 
-        // Perform Delivery
+        // Step 1: Calculate Cost
+        double cost = delivery.calculateCost();
+
+        // Step 2: Check if delivery cancelled
+        if (cost == 0 && delivery.status.equals("Cancelled")) {
+            System.out.println("Delivery cannot proceed due to restrictions.");
+            delivery.showDetails(delivery.getClass().getSimpleName());
+            sc.close();
+            return;
+        }
+
+        // Step 3: Apply Discount & Store Final Cost
+        delivery.finalCost = delivery.applyDiscount(cost);
+
+        // Step 4: Perform Delivery
         delivery.deliver();
 
-        double cost = delivery.calculateCost();
-        cost = delivery.applyDiscount(cost);
-
-        // Payment Section
+        // Step 5: Payment Section
         System.out.println("\nChoose Payment Mode:");
         System.out.println("1. Cash");
         System.out.println("2. UPI");
@@ -64,26 +75,30 @@ public class DeliveryManagementSystem {
         System.out.println("4. Wallet");
 
         int paymentChoice = sc.nextInt();
+        String paymentMode = "";
 
         switch (paymentChoice) {
             case 1:
-                System.out.println("Paid via Cash.");
+                paymentMode = "Cash";
                 break;
             case 2:
-                System.out.println("Paid via UPI.");
+                paymentMode = "UPI";
                 break;
             case 3:
-                System.out.println("Paid via Card.");
+                paymentMode = "Card";
                 break;
             case 4:
-                System.out.println("Paid via Wallet.");
+                paymentMode = "Wallet";
                 break;
             default:
                 System.out.println("Invalid payment option.");
+                sc.close();
+                return;
         }
 
-        ((Payable) delivery).makePayment(cost);
+        ((Payable) delivery).makePayment(delivery.finalCost, paymentMode);
 
+        // Step 6: Show Final Details
         delivery.showDetails(delivery.getClass().getSimpleName());
 
         sc.close();
