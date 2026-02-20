@@ -1,4 +1,4 @@
-package Day5_1;
+package Day5;
 import Day5.AccessModifier;
 public class AnotherDay extends AccessModifier {
     public static void main(String[] args) {
