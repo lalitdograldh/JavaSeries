@@ -3,14 +3,16 @@ package Day6.Day6_1;
 class DesignCourse extends Course {
     private String softwareUsed;
 
-    public DesignCourse(String courseId, String title, int duration, String instructorName, double price,
+    public DesignCourse(String title, int duration, String instructorName, double price,
             String softwareUsed) {
-        super(courseId, title, duration, instructorName, price);
+        super(title, duration, instructorName, price);
         this.softwareUsed = softwareUsed;
     }
 
-    public void calculateProgress(int completedHours) {
-        updateProgress(completedHours);
+    public void calculateProgress(int hours) {
+        completedHours += hours;
+        if (completedHours > duration) completedHours = duration;
+        progress = (completedHours * 100) / duration;
     }
 
     public void generateCertificate() {
@@ -22,7 +24,6 @@ class DesignCourse extends Course {
     }
 
     public double calculatePrice() {
-        double discountedPrice = price - 500;
-        return Math.max(discountedPrice, 0);
+        return Math.max(price - 500, 0);
     }
 }

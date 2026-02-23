@@ -1,5 +1,8 @@
 package Day6.Day6_1;
-class Enrollment {
+import java.io.Serializable;
+class Enrollment implements Serializable {
+    private static final long serialVersionUID = 1L; // For serialization
+    
     private Student student;
     private Course course;
 
@@ -9,7 +12,7 @@ class Enrollment {
     }
 
     public void enroll() {
-        course.enrollStudent(student.getName());
+        course.enrollStudent(student);
     }
 
     public void showEnrollmentDetails() {
@@ -17,7 +20,7 @@ class Enrollment {
         student.showStudentDetails();
         course.showCourseDetails();
     }
-    public Course getCourse() {
-        return course;
+    public String getStudentEmail() {
+        return student.getEmail();
     }
 }

@@ -1,7 +1,8 @@
 package Day6.Day6_1;
+import java.io.Serializable;
 import java.util.UUID;
-class Student {
-
+class Student implements Serializable { 
+    private static final long serialVersionUID = 1L; // For serialization
     private String studentId;
     private String name;
     private String email;
@@ -13,6 +14,9 @@ class Student {
         this.email = email;
     }
 
+    public String getEmail() {
+        return email;
+    }
     public String getName() {
         return name;
     }

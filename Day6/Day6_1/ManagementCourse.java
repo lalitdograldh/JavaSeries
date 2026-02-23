@@ -3,14 +3,16 @@ package Day6.Day6_1;
  class ManagementCourse extends Course{
     protected int caseStudiesCount;
 
-    public ManagementCourse(String courseId, String title, int duration, String instructorName, double price,
+    public ManagementCourse(String title, int duration, String instructorName, double price,
             int caseStudiesCount) {
-        super(courseId, title, duration, instructorName, price);
+        super(title, duration, instructorName, price);
         this.caseStudiesCount = caseStudiesCount;
     }
 
-    public void calculateProgress(int completedHours) {
-        updateProgress(completedHours);
+    public void calculateProgress(int hours) {
+        completedHours += hours;
+        if (completedHours > duration) completedHours = duration;
+        progress = (completedHours * 100) / duration;
     }
 
     public void generateCertificate() {
@@ -21,12 +23,8 @@ package Day6.Day6_1;
         }
     }
 
-    public double calculatePrice (){
+    public double calculatePrice() {
         return price;
     }
-
-    public double applyDiscount(double percentage) {
-       System.out.println("Discount not allowed for Management Course.");
-        return price;
-    }   
+   
  } 
